@@ -1,0 +1,25 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'build',
+        '-t',
+        'gcr.io/l1-team-testing/github.com/kilo10z/travelweb:$COMMIT_SHA',
+        '.',
+      ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'push',
+        'gcr.io/l1-team-testing/github.com/kilo10z/travelweb:$COMMIT_SHA',
+      ]
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      [
+        'beta',
+        'run',
+        'deploy',
+        'cloud-run-continuous-deployment-example',
+        '--image=gcr.io/l1-team-testing/github.com/kilo10z/travelweb:$COMMIT_SHA',
+        '--region=us-central1',
+      ]
