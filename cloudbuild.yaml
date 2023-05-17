@@ -13,12 +13,11 @@ steps:
 
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
-      - 'beta'
-      - 'run'
+      - 'app'
       - 'deploy'
-      - 'cloud-run-continuous-deployment-example'
-      - '--image=gcr.io/l1-team-testing/github.com/kilo10z/travelweb:$COMMIT_SHA'
-      - '--region=us-central1'
+      - '--image-url=gcr.io/l1-team-testing/github.com/kilo10z/travelweb:$COMMIT_SHA'
+    env:
+      - 'CLOUDSDK_CORE_DISABLE_PROMPTS=1'
 
 options:
   logging: CLOUD_LOGGING_ONLY
